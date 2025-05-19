@@ -1,0 +1,23 @@
+name: Daily Commit Streak
+
+on:
+  schedule:
+    - cron: '0 12 * * *'  # every day at 12:00 UTC
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Update daily.md file
+        run: echo "Last commit: $(date)" >> daily.md
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add daily.md
+          git commit -m "Daily commit for streak [skip ci]" || echo "No changes to commit"
+          git push
