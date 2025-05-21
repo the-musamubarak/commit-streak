@@ -21,4 +21,4 @@ jobs:
           git diff --quiet && git diff --cached --quiet || git commit -m "Daily commit for streak [skip ci]"
           git push
         env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
