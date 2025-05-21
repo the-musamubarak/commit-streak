@@ -2,14 +2,16 @@ name: Daily Commit Streak
 
 on:
   schedule:
-    - cron: '0 12 * * *'  # every day at 12:00 UTC
+    - cron: '0 12 * * *'  # Every day at 12:00 UTC
+  workflow_dispatch:
 
 jobs:
   commit:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
       - name: Update daily.md file
         run: echo "Last commit: $(date)" >> daily.md
@@ -21,3 +23,5 @@ jobs:
           git add daily.md
           git commit -m "Daily commit for streak [skip ci]" || echo "No changes to commit"
           git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
