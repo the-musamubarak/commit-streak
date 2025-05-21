@@ -1,7 +1,7 @@
 name: Daily Commit Streak
 on:
   schedule:
-    - cron: '0 12 * * *'  # Every day at 12:00 UTC (corrected syntax)
+    - cron: '0 12 * * *'  # Every day at 12:00 UTC
   workflow_dispatch:
 
 jobs:
@@ -11,12 +11,12 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Needed to properly commit later
+          fetch-depth: 0  # Needed for proper git history
 
-      - name: Update daily.md file
+      - name: Create or update daily.md
         run: echo "Last commit: $(date -u)" >> daily.md
 
-      - name: Commit changes
+      - name: Commit and push changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
